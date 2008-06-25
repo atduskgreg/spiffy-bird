@@ -1,4 +1,5 @@
  Spiffy Bird: JSPF to Songbird Bridge
+ http://github.com/atduskgreg/spiffy-bird
  Version: 0.6 6/25/2008 
  by Greg Borenstein
 
