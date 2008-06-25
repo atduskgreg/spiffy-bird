@@ -63,16 +63,16 @@
  XSPF usage example:
 
  get an XSPF document and render it into a local playlist using SpiffyBird, 
- jchris's , and jquery's $.ajax:
+ jchris's XSPF to JSPF Parser, and jquery's $.ajax:
 
  $.ajax({
- 	url: "playlist.xspf",
- 	success: function(xspf_doc){
- 		var xmlString = XSPF.XMLfromString(xspf_doc);
- 		var jspf = XSPF.toJSPF(xmlString);
- 		SpiffyBird.localPlaylist.save(jspf);
- 		$("h1").html("Saved playlist: "+jspf["playlist"]["title"]);
- 	}
+   url: "playlist.xspf",
+   success: function(xspf_string){
+     var xmlDOM = XSPF.XMLfromString(xspf_string);
+     var jspf = XSPF.toJSPF(xmlDOM);
+     SpiffyBird.localPlaylist.save(jspf);
+     $("h1").html("Saved playlist: "+jspf["playlist"]["title"]);
+   }
  });
 
  KNOWN ISSUES:
