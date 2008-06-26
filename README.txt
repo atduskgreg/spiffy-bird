@@ -36,8 +36,17 @@
  SpiffyBird.webPlaylist.get()
 	return a JSPF representation of the current state of the Web Playlist
 
- SpiffyBird.localPlaylist.save(jspf)
-	saves the given JSPF into	a local playlist within songbird
+ SpiffyBird.localPlaylist.save(jspf, urlResolver)
+	saves the given JSPF into	a local playlist within songbird;
+	urlResolver is an optional function that generates a url for to create the mediaItem
+	from a track's title and playlist if no identifier or existing location is available.
+	urlResolver gets passed title and creator as arguments. An example usage might be:
+	
+		SpiffyBird.localPlaylist.save(jspf, urlResolver(title, creator){
+			return 'http://mydomain.com'+'/music/'+creator+'/'+title+'.mp3'
+		})
+		
+	the default resolver points at mp3s on http://Grabb.it
 
  SpiffyBird.localPlaylist.get(query)
   returns JSPF representations of all playlists that match the given query;
@@ -56,10 +65,11 @@
  SpiffyBird.utils.JSPFfrom(mediaList)
  	returns a JSPF representation of the mediaList
 
- SpiffyBird.utils.JSPFinto(jspf, mediaList, library)
+ SpiffyBird.utils.JSPFinto(jspf, mediaList, library, userResolver)
  	populates the mediaList from the given JSPF.
  	will use existing mediaItems on the given library if available,
-	otherwise it will add them.
+	otherwise it will add them. For details on the use of userResolver,
+	see SpiffyBird.localPlaylist.save, above.
 
  XSPF usage example:
 
@@ -78,5 +88,4 @@
 
  KNOWN ISSUES:
  - should serialize the rest of the playlist-level metadata into the mediaList properties
- - right now we fallback to grabb.it mp3 urls when creating mediaItems since we need something...
  - we fail to use siteLibrary scope options when allowed
